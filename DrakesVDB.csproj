@@ -389,7 +389,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Drakemod.cs" />
         <Compile Include="DrakesVDB.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
