@@ -47,7 +47,8 @@ namespace VDB.Core.DataTypes
 
         private static void SeedDefaultGroups()
         {
-            var defaultGroups = new List<string> { "GroupA", "GroupB", "GroupC" };
+            // "Admin" must always exist so AssignRole("Admin") can succeed.
+            var defaultGroups = new List<string> { "Admin", "GroupA", "GroupB", "GroupC" };
 
             foreach (var groupName in defaultGroups)
             {
@@ -97,6 +98,13 @@ namespace VDB.Core.DataTypes
         }
 
         public static IEnumerable<Player> GetAllPlayers() => _players.FindAll();
+
+        /// <summary>
+        /// Looks up a player by Steam ID.  Returns null if not found.
+        /// Use this whenever you need to map a runtime Steam ID back to a DB record.
+        /// </summary>
+        public static Player GetPlayer(string steamID) =>
+            _players.FindOne(p => p.SteamID == steamID);
 
         // -------------------------
         // Role / Role Assignment

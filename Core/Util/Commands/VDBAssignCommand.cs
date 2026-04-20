@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Jotunn.Entities;
 using VDB.Core.DataTypes;
 using VDB.Core.Util.Commands;
 
@@ -11,7 +10,7 @@ namespace VDB.Core.Util.commands
         public override string Name => "vdb_assign";
         public override string Help => "Assign a player to a role. Usage: vdb_assign <steamID> <roleName>";
 
-        public override void Run(string[] args)
+        protected override void SafeRun(string[] args)
         {
             if (args.Length < 2)
             {
@@ -19,7 +18,7 @@ namespace VDB.Core.Util.commands
                 return;
             }
 
-            string steamID = args[0];
+            string steamID  = args[0];
             string roleName = args[1];
 
             bool success = ServerDB.AssignRole(steamID, roleName);
@@ -28,15 +27,6 @@ namespace VDB.Core.Util.commands
                 : $"[VDB] Failed to assign {steamID} to role {roleName}.");
         }
 
-        protected override void SafeRun(string[] args)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override List<string> CommandOptionList()
-        {
-           return ServerDB.GetRoleList();
-
-        }
+        public override List<string> CommandOptionList() => ServerDB.GetRoleList();
     }
 }

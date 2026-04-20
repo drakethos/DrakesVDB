@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using VDB.Core.DataTypes;
 using VDB.Core.DataTypes.Util;
@@ -11,35 +10,47 @@ namespace VDB.Core.Util.Commands
     {
         public override string Name => "vdb_addplayer";
         public override string Help =>
-            "Adds a player to both VDB and Valheim white lists. Usage: vdb_addplayer <playername, steamID>";
+            "Adds a player to VDB.\n" +
+            "Usage: vdb_addplayer <playerName> [steamID]\n" +
+            "       If steamID is omitted, it is resolved from the active peer list.";
 
         protected override void SafeRun(string[] args)
         {
             if (args.Length < 1)
             {
-                Console.instance.Print("Usage: vdb_addplayer<name> <steamName>");
+                Console.instance.Print(Help);
                 return;
             }
 
-            string steamID = args[1];
-            string playerName = args[0];
-            if (String.IsNullOrEmpty(steamID))
-            {
-                steamID = Helper.getSteamId(playerName).ToString();
-            }
-            
-            // Ensure player exists in DB
-            var player = ServerDB.AddPlayer(steamID, playerName);
+            string playerName = args[0].Trim();
+            string steamID;
 
-            // Assign to Admin group
-            if (player != null)
-            { 
-                Console.instance.Print($"{playerName} Player successfully added to db.");
-                Debug.Log($"[DrakeVDB] Player added to db : {steamID}");
+            if (args.Length >= 2 && !string.IsNullOrWhiteSpace(args[1]))
+            {
+                steamID = args[1].Trim();
             }
             else
             {
-                Console.instance.Print($"[VDB] Failed: Player {steamID} may already be an Admin.");
+                // Auto-resolve from the connected peer list
+                ulong resolved = Helper.getSteamId(playerName);
+                if (resolved == 0)
+                {
+                    Console.instance.Print($"[VDB] Could not resolve Steam ID for '{playerName}'. " +
+                                           "Provide it explicitly: vdb_addplayer <name> <steamID>");
+                    return;
+                }
+                steamID = resolved.ToString();
+            }
+
+            var player = ServerDB.AddPlayer(steamID, playerName);
+            if (player != null)
+            {
+                Console.instance.Print($"[VDB] Player '{playerName}' (SteamID: {steamID}) added to DB.");
+                Debug.Log($"[DrakeVDB] Player added: {playerName} / {steamID}");
+            }
+            else
+            {
+                Console.instance.Print($"[VDB] Player '{playerName}' (SteamID: {steamID}) already exists in DB.");
             }
         }
 

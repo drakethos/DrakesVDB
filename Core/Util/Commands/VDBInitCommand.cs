@@ -1,7 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Jotunn.Entities;
 using VDB.Core.DataTypes;
 using VDB.Core.Util.Commands;
 
@@ -12,7 +10,7 @@ namespace VDB.Core.Util.commands
         public override string Name => "vdb_init";
         public override string Help => "Initializes the VDB database. Usage: vdb_init [dbname]";
 
-        public override void Run(string[] args)
+        protected override void SafeRun(string[] args)
         {
             try
             {
@@ -26,15 +24,6 @@ namespace VDB.Core.Util.commands
             }
         }
 
-        protected override void SafeRun(string[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override List<string> CommandOptionList()
-        {
-            // Could list possible DB names or leave empty
-            return new List<string> { "VDB.db" };
-        }
+        public override List<string> CommandOptionList() => new List<string> { "VDB.db" };
     }
 }
