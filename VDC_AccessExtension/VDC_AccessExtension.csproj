@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.44\build\ILRepack.Lib.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.44\build\ILRepack.Lib.MSBuild.Task.targets')" />
+
+    <Import Project="..\environment.props" />
+    <Import Project="..\ILRepack.targets" />
+
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{A3C1F2D4-7E5B-4A8F-9C3D-2B1E6F0D4A7C}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>VDC.AccessExtension</RootNamespace>
+        <AssemblyName>DrakesVDCAccess</AssemblyName>
+        <CompanyName>DrakeMods</CompanyName>
+        <Version>0.0.1</Version>
+        <ThunderstoreBasePath>C:\Modding\Thunderstore</ThunderstoreBasePath>
+        <ThunderstoreFolder>C:\Modding\Thunderstore\$(CompanyName)-$(AssemblyName)-$(Version)</ThunderstoreFolder>
+        <ZipOutput>$(ThunderstoreFolder).zip</ZipOutput>
+        <ManifestPath>$(ThunderstoreFolder)\manifest.json</ManifestPath>
+        <Description>VDC Access Extension — addon for DrakesVDB. Adds whitelist, banlist, and adminlist tables
+            that the game checks first before falling back to the native Valheim lists. Supports syncing
+            entries back to the native lists. Requires DrakesVDB.</Description>
+        <WebsiteUrl>https://github.com/drakethos/DrakesVDB</WebsiteUrl>
+        <Dependencies>"denikson-BepInExPack_Valheim-5.4.2333", "ValheimModding-Jotunn-2.27.0", "DrakeMods-DrakesVDB-0.0.1"</Dependencies>
+        <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- BepInEx / Harmony -->
+        <Reference Include="0Harmony">
+            <HintPath>$(BepInExPath)\core\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx">
+            <HintPath>$(BepInExPath)\core\BepInEx.dll</HintPath>
+        </Reference>
+
+        <!-- Jotunn -->
+        <Reference Include="Jotunn, Version=2.27.0.0, Culture=neutral, processorArchitecture=MSIL">
+            <HintPath>..\packages\JotunnLib.2.27.0\lib\net462\Jotunn.dll</HintPath>
+        </Reference>
+
+        <!-- Valheim publicized assemblies -->
+        <Reference Include="assembly_guiframework">
+            <HintPath>$(PublicizedAssembliesPath)\gui_framework_publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="assembly_valheim">
+            <HintPath>$(PublicizedAssembliesPath)\assembly_valheim_publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="assembly_utils">
+            <HintPath>$(PublicizedAssembliesPath)\assembly_utils_publicized.dll</HintPath>
+        </Reference>
+
+        <!-- LiteDB -->
+        <Reference Include="LiteDB, Version=5.0.21.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+            <HintPath>..\packages\LiteDB.5.0.21\lib\net45\LiteDB.dll</HintPath>
+        </Reference>
+
+        <!-- Unity -->
+        <Reference Include="UnityEngine">
+            <HintPath>$(CorlibPath)\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(CorlibPath)\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(CorlibPath)\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+            <HintPath>$(CorlibPath)\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.JSONSerializeModule">
+            <HintPath>$(CorlibPath)\UnityEngine.JSONSerializeModule.dll</HintPath>
+        </Reference>
+
+        <!-- Standard .NET -->
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="mscorlib" />
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Xml.Linq" />
+
+        <!-- DrakesVDB — the parent mod we depend on -->
+        <Reference Include="DrakesVDB">
+            <HintPath>..\bin\Debug\DrakesVDB.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="Core\DataTypes\AccessListType.cs" />
+        <Compile Include="Core\DataTypes\AccessEntry.cs" />
+        <Compile Include="Core\DataTypes\AccessList.cs" />
+        <Compile Include="Core\DataTypes\AccessLog.cs" />
+        <Compile Include="Core\AccessDB.cs" />
+        <Compile Include="Core\Patches\ZNetPatches.cs" />
+        <Compile Include="Core\Util\Commands\VDCAccessCommandBase.cs" />
+        <Compile Include="Core\Util\Commands\VDCAllowCommand.cs" />
+        <Compile Include="Core\Util\Commands\VDCBanCommand.cs" />
+        <Compile Include="Core\Util\Commands\VDCAdminCommand.cs" />
+        <Compile Include="Core\Util\Commands\VDCRemoveAccessCommand.cs" />
+        <Compile Include="Core\Util\Commands\VDCListAccessCommand.cs" />
+        <Compile Include="VDCAccessExtension.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\App.config" />
+    </ItemGroup>
+
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+    <PropertyGroup>
+        <EnableDefaultItems>false</EnableDefaultItems>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
+    <Target Name="CopyOutput" AfterTargets="Build">
+        <PropertyGroup>
+            <TargetFolder>$(CompanyName)-$(AssemblyName)</TargetFolder>
+            <FullDestinationPath>$(R2ModPath)\$(ProfileName)\BepInEx\plugins\$(TargetFolder)</FullDestinationPath>
+        </PropertyGroup>
+        <MakeDir Directories="$(FullDestinationPath)"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(FullDestinationPath)\"/>
+    </Target>
+
+    <Target Name="PackageMod" AfterTargets="Build">
+        <MakeDir Directories="$(ThunderstoreFolder)"/>
+        <WriteLinesToFile File="$(ManifestPath)" Lines="@(ManifestJson)" Overwrite="true"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(ThunderstoreFolder)"/>
+        <Exec Command="powershell -Command Compress-Archive -Path '$(ThunderstoreFolder)\*' -DestinationPath '$(ZipOutput)' -Force"/>
+    </Target>
+
+    <ItemGroup>
+        <ManifestJson Include='{
+    "name": "$(AssemblyName)",
+    "version_number": "$(Version)",
+    "author": "$(CompanyName)",
+    "description": "$(Description)",
+    "website_url": "$(WebsiteUrl)",
+    "dependencies": [ $(Dependencies) ]
+}' />
+    </ItemGroup>
+</Project>

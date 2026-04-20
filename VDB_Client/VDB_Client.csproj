@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.44\build\ILRepack.Lib.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.44\build\ILRepack.Lib.MSBuild.Task.targets')" />
+
+    <Import Project="..\environment.props" />
+    <Import Project="..\ILRepack.targets" />
+
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{B7D2E3F5-1A4C-4E9B-8D6F-3C0A2B5E8F1D}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>VDB.Client</RootNamespace>
+        <AssemblyName>DrakesVDBClient</AssemblyName>
+        <CompanyName>DrakeMods</CompanyName>
+        <Version>0.0.1</Version>
+        <ThunderstoreBasePath>C:\Modding\Thunderstore</ThunderstoreBasePath>
+        <ThunderstoreFolder>C:\Modding\Thunderstore\$(CompanyName)-$(AssemblyName)-$(Version)</ThunderstoreFolder>
+        <ZipOutput>$(ThunderstoreFolder).zip</ZipOutput>
+        <ManifestPath>$(ThunderstoreFolder)\manifest.json</ManifestPath>
+        <Description>VDB Client — bare-bones client mod required by every player on a VDB server.
+            Handles the handshake and authentication with the server-side VDB, maps Steam ID to
+            player DB records, and propagates role/admin information to the client. Players who
+            do not have this mod installed are automatically kicked on join. Requires DrakesVDB
+            on the server; this mod runs on BOTH server and client.</Description>
+        <WebsiteUrl>https://github.com/drakethos/DrakesVDB</WebsiteUrl>
+        <Dependencies>"denikson-BepInExPack_Valheim-5.4.2333", "ValheimModding-Jotunn-2.27.0"</Dependencies>
+        <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- BepInEx / Harmony -->
+        <Reference Include="0Harmony">
+            <HintPath>$(BepInExPath)\core\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx">
+            <HintPath>$(BepInExPath)\core\BepInEx.dll</HintPath>
+        </Reference>
+
+        <!-- Jotunn -->
+        <Reference Include="Jotunn, Version=2.27.0.0, Culture=neutral, processorArchitecture=MSIL">
+            <HintPath>..\packages\JotunnLib.2.27.0\lib\net462\Jotunn.dll</HintPath>
+        </Reference>
+
+        <!-- Valheim publicized assemblies -->
+        <Reference Include="assembly_guiframework">
+            <HintPath>$(PublicizedAssembliesPath)\gui_framework_publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="assembly_valheim">
+            <HintPath>$(PublicizedAssembliesPath)\assembly_valheim_publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="assembly_utils">
+            <HintPath>$(PublicizedAssembliesPath)\assembly_utils_publicized.dll</HintPath>
+        </Reference>
+
+        <!-- Unity -->
+        <Reference Include="UnityEngine">
+            <HintPath>$(CorlibPath)\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(CorlibPath)\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(CorlibPath)\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+            <HintPath>$(CorlibPath)\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.JSONSerializeModule">
+            <HintPath>$(CorlibPath)\UnityEngine.JSONSerializeModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+            <HintPath>$(CorlibPath)\UnityEngine.AnimationModule.dll</HintPath>
+        </Reference>
+
+        <!-- Standard .NET -->
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="mscorlib" />
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Xml.Linq" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="Core\Protocol\PacketType.cs" />
+        <Compile Include="Core\Protocol\VDBPacket.cs" />
+        <Compile Include="Core\Protocol\HandshakeRequest.cs" />
+        <Compile Include="Core\Protocol\HandshakeResponse.cs" />
+        <Compile Include="Core\Protocol\CommandRequest.cs" />
+        <Compile Include="Core\Protocol\CommandResponse.cs" />
+        <Compile Include="Core\Protocol\KickNotice.cs" />
+        <Compile Include="Core\Server\VDBRpcServer.cs" />
+        <Compile Include="Core\Client\VDBRpcClient.cs" />
+        <Compile Include="Core\Client\ClientSession.cs" />
+        <Compile Include="Core\Patches\ZNetPeerPatches.cs" />
+        <Compile Include="Core\Commands\VDBClientStatusCommand.cs" />
+        <Compile Include="VDBClientPlugin.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\App.config" />
+    </ItemGroup>
+
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+    <PropertyGroup>
+        <EnableDefaultItems>false</EnableDefaultItems>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
+    <Target Name="CopyOutput" AfterTargets="Build">
+        <PropertyGroup>
+            <TargetFolder>$(CompanyName)-$(AssemblyName)</TargetFolder>
+            <FullDestinationPath>$(R2ModPath)\$(ProfileName)\BepInEx\plugins\$(TargetFolder)</FullDestinationPath>
+        </PropertyGroup>
+        <MakeDir Directories="$(FullDestinationPath)"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(FullDestinationPath)\"/>
+    </Target>
+
+    <Target Name="PackageMod" AfterTargets="Build">
+        <MakeDir Directories="$(ThunderstoreFolder)"/>
+        <WriteLinesToFile File="$(ManifestPath)" Lines="@(ManifestJson)" Overwrite="true"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(ThunderstoreFolder)"/>
+        <Exec Command="powershell -Command Compress-Archive -Path '$(ThunderstoreFolder)\*' -DestinationPath '$(ZipOutput)' -Force"/>
+    </Target>
+
+    <ItemGroup>
+        <ManifestJson Include='{
+    "name": "$(AssemblyName)",
+    "version_number": "$(Version)",
+    "author": "$(CompanyName)",
+    "description": "$(Description)",
+    "website_url": "$(WebsiteUrl)",
+    "dependencies": [ $(Dependencies) ]
+}' />
+    </ItemGroup>
+</Project>
