@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Valheim (Steam, build first)",
+      "type": "clr",
+      "request": "launch",
+      "preLaunchTask": "Build DrakeVDB (Debug)",
+      "program": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim\\valheim.exe",
+      "cwd": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim",
+      "console": "integratedTerminal",
+      "env": {
+        "SteamAppId": "892970"
+      }
+    },
+    {
+      "name": "Launch Valheim (custom path, build first)",
+      "type": "clr",
+      "request": "launch",
+      "preLaunchTask": "Build DrakeVDB (Debug)",
+      "program": "${input:valheimExe}",
+      "cwd": "${input:valheimDir}",
+      "console": "integratedTerminal",
+      "env": {
+        "SteamAppId": "892970"
+      }
+    },
+    {
+      "name": "Attach to Valheim (build first)",
+      "type": "clr",
+      "request": "attach",
+      "preLaunchTask": "Build DrakeVDB (Debug)",
+      "processName": "valheim"
+    },
+    {
+      "name": "Attach to process… (build first)",
+      "type": "clr",
+      "request": "attach",
+      "preLaunchTask": "Build DrakeVDB (Debug)",
+      "processId": "${command:pickProcess}"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "valheimExe",
+      "type": "promptString",
+      "description": "Full path to valheim.exe",
+      "default": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim\\valheim.exe"
+    },
+    {
+      "id": "valheimDir",
+      "type": "promptString",
+      "description": "Valheim game folder (folder that contains valheim.exe)",
+      "default": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim"
+    }
+  ]
+}

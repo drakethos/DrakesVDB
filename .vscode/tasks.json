@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build DrakeVDB (Debug)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/DrakeVDB.sln", "-c", "Debug"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Build DrakeVDB (Release)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/DrakeVDB.sln", "-c", "Release"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": false
+      },
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

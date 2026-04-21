@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- Run ILRepack after build -->
+    <Target Name="ILRepacker" AfterTargets="Build">
+        <!-- Define paths -->
+        <PropertyGroup>
+            <!-- Adjust to your actual package version if needed -->
+            <LiteDBPath>packages\LiteDB.5.0.21\lib\net45\LiteDB.dll</LiteDBPath>
+            <Buffer>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</Buffer>
+        </PropertyGroup>
+
+        <ItemGroup>
+            <InputAssemblies Include="$(TargetPath)" />
+            <InputAssemblies Include="$(LiteDBPath)" />
+            <InputAssemblies Include="$(Buffer)" />
+        </ItemGroup>
+
+        <!-- Run ILRepack -->
+        <ILRepack
+                Parallel="true"
+                DebugInfo="true"
+                Internalize="true"
+                InputAssemblies="@(InputAssemblies)"
+                OutputFile="$(TargetDir)$(AssemblyName).merged.dll"
+                TargetKind="SameAsPrimaryAssembly"
+                LibraryPath="$(OutputPath)" />
+
+        <!-- Replace the original DLL with the merged one -->
+        <Copy
+                SourceFiles="$(TargetDir)$(AssemblyName).merged.dll"
+                DestinationFiles="$(TargetPath)"
+                OverwriteReadOnlyFiles="true" />
+        <Delete Files="$(TargetDir)$(AssemblyName).merged.dll" />
+    </Target>
+
+</Project>

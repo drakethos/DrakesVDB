@@ -1,0 +1,4 @@
+c:\Modding\Vahleim\Mod\DrakeVDB\VDB-DBTest\obj\Debug\net48\VDB-DBTest.csproj.AssemblyReference.cache
+c:\Modding\Vahleim\Mod\DrakeVDB\VDB-DBTest\obj\Debug\net48\VDB-DBTest.GeneratedMSBuildEditorConfig.editorconfig
+c:\Modding\Vahleim\Mod\DrakeVDB\VDB-DBTest\obj\Debug\net48\VDB-DBTest.csproj.CoreCompileInputs.cache
+c:\Modding\Vahleim\Mod\DrakeVDB\VDB-DBTest\obj\Debug\net48\VDB-DBTest.sourcelink.json

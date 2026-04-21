@@ -1,0 +1,145 @@
+{
+  "format": 1,
+  "restore": {
+    "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-DBTest\\VDB-DBTest.csproj": {}
+  },
+  "projects": {
+    "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-Auth\\VDB-Auth.csproj": {
+      "restore": {
+        "projectUniqueName": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-Auth\\VDB-Auth.csproj",
+        "projectName": "VDB-Auth",
+        "projectPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-Auth\\VDB-Auth.csproj",
+        "packagesPath": "C:\\Users\\house\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
+        "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "C:\\Users\\house\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net481": {
+            "framework": "net481",
+            "projectReferences": {
+              "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\VDB-Base.csproj": {
+                "projectPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\VDB-Base.csproj"
+              }
+            }
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low"
+        },
+        "packagesConfigPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-Auth\\packages.config"
+      },
+      "frameworks": {
+        "net481": {
+          "framework": "net481"
+        }
+      }
+    },
+    "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-DBTest\\VDB-DBTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-DBTest\\VDB-DBTest.csproj",
+        "projectName": "VDB-DBTest",
+        "projectPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-DBTest\\VDB-DBTest.csproj",
+        "packagesPath": "C:\\Users\\house\\.nuget\\packages\\",
+        "outputPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-DBTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\house\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net481"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net481": {
+            "framework": "net481",
+            "targetAlias": "net481",
+            "projectReferences": {
+              "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-Auth\\VDB-Auth.csproj": {
+                "projectPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDB-Auth\\VDB-Auth.csproj"
+              },
+              "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\VDB-Base.csproj": {
+                "projectPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\VDB-Base.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net481": {
+          "framework": "net481",
+          "targetAlias": "net481",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\VDB-Base.csproj": {
+      "restore": {
+        "projectUniqueName": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\VDB-Base.csproj",
+        "projectName": "VDB-Base",
+        "projectPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\VDB-Base.csproj",
+        "packagesPath": "C:\\Users\\house\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
+        "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "C:\\Users\\house\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net481": {
+            "framework": "net481",
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low"
+        },
+        "packagesConfigPath": "c:\\Modding\\Vahleim\\Mod\\DrakeVDB\\VDBBase\\packages.config"
+      },
+      "frameworks": {
+        "net481": {
+          "framework": "net481"
+        }
+      }
+    }
+  }
+}
